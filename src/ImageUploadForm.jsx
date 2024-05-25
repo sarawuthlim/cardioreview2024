@@ -30,15 +30,16 @@ function ImageUploadForm() {
   const [emailError, setEmailError] = useState(false);
 
   const handleEmailChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value);
     setEmailError(!isValidEmail);
   };
 
-  const [formData, setFormData] = useState({ inputText: "", image: null });
+  const [formData, setFormData] = useState({ name: "", email: "", institute: "", code: "", image: ""});
+
   const [isLoading, setIsLoading] = useState(false);
-
   const [previewUrl, setPreviewUrl] = useState(null);
-
   const [formErrors, setFormErrors] = useState({});
 
   const handleChange = (e) => {
@@ -48,11 +49,11 @@ function ImageUploadForm() {
     if (e.target.name === "email" && emailError) {
       errors.email = "Invalid email address";
     }
-
     setFormErrors(errors);
   };
 
   const handleImageChange = (e) => {
+    const file = e.target.files[0];
     setFormData({ ...formData, image: e.target.files[0] });
 
     // Create image preview URL
@@ -69,7 +70,7 @@ function ImageUploadForm() {
 
     try {
       // 1. Create new file name from input
-      const newFileName = `${formData.inputText.replace(/\s+/g, "_")}`;
+      const newFileName = `${formData.image.name.replace(/\s+/g, '_')}`; 
 
       // 2. Image Upload
       let imageUrl = "";
@@ -80,14 +81,19 @@ function ImageUploadForm() {
       }
 
       // 3. Store Data in Firestore
-      await addDoc(collection(db, "formData"), {
-        inputText: formData.inputText,
+      await addDoc(collection(db, "register"), {
+        name: formData.name,
+        email: formData.email,
+        institute: formData.institute,
+        code: formData.code,
         imageUrl, // Include image URL if uploaded
         timestamp: new Date(), // Optional: Add a timestamp
+        applyType: "self",
+        approved: false,
       });
 
       // 4. Reset form and loading state
-      setFormData({ inputText: "", image: null });
+      setFormData({ name: "", email: "", institute: "", code: "", image: null });
       setIsLoading(false);
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -109,6 +115,7 @@ function ImageUploadForm() {
             variant="outlined"
             color="secondary"
             label="ชื่อ สกุล (ไม่ต้องใส่คำนำหน้า)"
+            name="name"
             value={formData.name}
             fullWidth
             required
@@ -124,6 +131,7 @@ function ImageUploadForm() {
             variant="outlined"
             color="secondary"
             label="Email"
+            name="email"
             value={formData.email}
             onChange={handleEmailChange}
             error={emailError}
@@ -144,6 +152,7 @@ function ImageUploadForm() {
           name="institute"
           value={formData.institute}
           fullWidth
+          onChange={handleChange}
         />
 
         <TextField
@@ -151,9 +160,10 @@ function ImageUploadForm() {
           variant="outlined"
           color="secondary"
           label="เลข ว. เฉพาะแพทย์ (เพื่อให้ได้ CME)"
-          name="institute"
+          name="code"
           value={formData.code}
           fullWidth
+          onChange={handleChange}
         />
 
         <Button variant="outlined" component="label" fullWidth>
