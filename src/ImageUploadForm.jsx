@@ -1,14 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
 import {
   TextField,
   Button,
   Box,
   FormControl,
   FormHelperText,
-} from "@mui/material"; // Adjust imports for your styling library
+} from "@mui/material";
+
+async function fetchDataFromFirebase() {
+  const querySnapshot = await getDocs(collection(db, "register"));
+  const fetchedData = [];
+  querySnapshot.forEach((doc) => {
+    fetchedData.push({ id: doc.id, ...doc.data() });
+  });
+  return fetchedData;
+}
+
+// function check whether given email is already registered (in the email array)
+function isEmailRegistered(email, emailArray) {
+  return emailArray.includes(email);
+}
 
 // Your Firebase configuration
 const firebaseConfig = {
@@ -26,19 +40,53 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 const db = getFirestore(app);
 
-function ImageUploadForm() {
+function ImageUploadForm({ onLoadingChange }) {
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [registeredEmails, setRegisteredEmails] = useState([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    async function fetchData() {
+      try {
+        const data = await fetchDataFromFirebase();
+        setData(data);
+        // set registered emails
+        setRegisteredEmails(data.map((item) => item.email));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   const [emailError, setEmailError] = useState(false);
 
   const handleEmailChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value);
-    setEmailError(!isValidEmail);
+
+    const isEmailAlreadyRegistered = isEmailRegistered(
+      e.target.value,
+      registeredEmails
+    );
+
+    setEmailError(!isValidEmail || isEmailAlreadyRegistered);
   };
 
-  const [formData, setFormData] = useState({ name: "", email: "", institute: "", code: "", image: ""});
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    institute: "",
+    code: "",
+    image: "",
+  });
 
-  const [isLoading, setIsLoading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [formErrors, setFormErrors] = useState({});
 
@@ -67,10 +115,11 @@ function ImageUploadForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    onLoadingChange(true);
 
     try {
       // 1. Create new file name from input
-      const newFileName = `${formData.image.name.replace(/\s+/g, '_')}`; 
+      const newFileName = `${formData.image.name.replace(/\s+/g, "_")}`;
 
       // 2. Image Upload
       let imageUrl = "";
@@ -86,18 +135,26 @@ function ImageUploadForm() {
         email: formData.email,
         institute: formData.institute,
         code: formData.code,
-        imageUrl, // Include image URL if uploaded
-        timestamp: new Date(), // Optional: Add a timestamp
+        imageUrl,
+        timestamp: new Date().toLocaleDateString(),
         applyType: "self",
         approved: false,
       });
 
       // 4. Reset form and loading state
-      setFormData({ name: "", email: "", institute: "", code: "", image: null });
+      setFormData({
+        name: "",
+        email: "",
+        institute: "",
+        code: "",
+        image: null,
+      });
       setIsLoading(false);
+      onLoadingChange(false);
     } catch (error) {
       console.error("Error submitting form:", error);
       setIsLoading(false);
+      onLoadingChange(false);
     }
   };
 
@@ -135,7 +192,11 @@ function ImageUploadForm() {
             value={formData.email}
             onChange={handleEmailChange}
             error={emailError}
-            helperText={emailError ? "Invalid email address" : ""}
+            helperText={
+              emailError
+                ? "Invalid email address or this email is already registered"
+                : ""
+            }
             fullWidth
             required
           />

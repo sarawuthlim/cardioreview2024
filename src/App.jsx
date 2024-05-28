@@ -1,17 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import ImageUploadForm from './ImageUploadForm'
+import { useState } from "react";
+import "./App.css";
+import ImageUploadForm from "./ImageUploadForm";
+import SimpleSpinner from "./SimpleSpinner";
+import DrawerAppBar from "./DrawerAppBar";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLoadingChange = (loadingStatus) => {
+    setIsLoading(loadingStatus);
+  };
 
   return (
     <>
-      <ImageUploadForm />
+      <SimpleSpinner isLoading={isLoading} />
+      <DrawerAppBar />
+      <ImageUploadForm onLoadingChange={handleLoadingChange} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
