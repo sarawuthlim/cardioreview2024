@@ -116,6 +116,10 @@ const goldSponsors = [
     img: "src/assets/3-LGChem.jpg",
     title: "LG Chem",
   },
+  {
+    img: "src/assets/3-Roche.jpg",
+    title: "Roche Diagnostics",
+  },
 ];
 
 function Home() {
@@ -127,7 +131,7 @@ function Home() {
           position: "relative",
           backgroundColor: "grey.800",
           color: "#fff",
-          mb: 4,
+          mb: 2,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
@@ -176,6 +180,18 @@ function Home() {
         </Grid>
       </Paper>
 
+      <Card sx={{ minWidth: 275 }}>
+        <CardContent>
+          <Typography variant="ิิbody1" color="primary" gutterBottom>
+            การประชุมวิชาการ <br />
+            แผนกโรคหัวใจและหลอดเลือด <br />
+            โรงพยาบาลพระมงกุฎเกล้า <br />
+            ณ ชั้น 10 อาคารเฉลิมพระเกียรติ 6 รอบ พระชนมพรรษา<br />
+            13-14 กรกฎาคม 2567
+          </Typography>
+        </CardContent>
+      </Card>
+
       <Box sx={{ width: "100%", mt: 2 }}>
         <img
           src={keynoteLectureUrl}
@@ -186,7 +202,7 @@ function Home() {
 
       <Card sx={{ minWidth: 275, mt: 4 }}>
         <CardContent>
-          <Typography variant="h3" color="primary" gutterBottom>
+          <Typography variant="h4" color="primary" gutterBottom>
             Diamond Sponsors
           </Typography>
           <ImageList cols={2} gap={26}>

@@ -18,7 +18,7 @@ import Hidden from "@mui/material/Hidden";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
-const navItems = ["home", "register", "agenda"];
+const navItems = ["home", "register", "check", "agenda"];
 
 function DrawerAppBar(props) {
   const { window } = props;

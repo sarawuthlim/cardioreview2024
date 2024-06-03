@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { getCurrentBKKTime } from "./util";
+import { useNavigate } from "react-router-dom";
 
 async function fetchDataFromFirebase() {
   const querySnapshot = await getDocs(collection(db, "register"));
@@ -46,6 +47,8 @@ function ImageUploadForm({ onLoadingChange }) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [registeredEmails, setRegisteredEmails] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -159,6 +162,10 @@ function ImageUploadForm({ onLoadingChange }) {
       });
       setIsLoading(false);
       onLoadingChange(false);
+
+      // 5. Redirect to success page
+      navigate("/success");
+
     } catch (error) {
       console.error("Error submitting form:", error);
       setIsLoading(false);

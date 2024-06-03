@@ -33,6 +33,7 @@ export const companyList = [
   { id: 24, name: "Medtronic", product: "", quota: 5 },
   { id: 25, name: "A. Menarini", product: "Ranexa", quota: 5 },
   { id: 26, name: "LG Chem", product: "Zemiglo", quota: 5 },
+  { id: 27, name: "Roche Diagnostics", product: "", quota: 5 },
 ];
 
 export const getComanyById = (id) => {
@@ -52,7 +53,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 export async function fetchDataFromFirebase() {
   const querySnapshot = await getDocs(collection(db, "register"));
@@ -63,8 +64,13 @@ export async function fetchDataFromFirebase() {
   return fetchedData;
 }
 
-export function filterDataByCompany(data, companyId) {
-  return data.filter((item) => item.id == companyId);
+
+export function filterBySponsor(data, companyId) {
+  return data.filter((item) => item.sponsor == companyId && item.applyType == "sponsor");
+}
+
+export function filterByOverQuota(data, companyId) {
+  return data.filter((item) => item.sponsor == companyId && item.applyType == "overQuota");
 }
 
 export function getCurrentBKKTime() {
@@ -87,4 +93,13 @@ export function getSponsorCount(data, companyId) {
   return data.filter(
     (item) => item.sponsor == companyId && item.applyType == "sponsor"
   ).length;
+}
+
+export function isEmailRegistered(email, emailArray) {
+  return emailArray.includes(email);
+}
+
+export function likeFilter(array, pattern) {
+  const regex = new RegExp(`.*${pattern}.*`, 'i');
+  return array.filter(item => regex.test(item));
 }

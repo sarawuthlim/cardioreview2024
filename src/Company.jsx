@@ -1,4 +1,4 @@
-import { Button, Card, Grid, Typography } from "@mui/material";
+import { Box, Button, Card, Grid, Typography } from "@mui/material";
 import React from "react";
 
 import { companyList } from "./util";
@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 function Company() {
   return (
     <>
-      <Typography variant="h4">เลือก ชื่อบริษัท/Product ของท่าน</Typography>
+      <Box sx={{ flexGrow: 1, mt: 2 }} />
+      <Typography variant="h4">เลือก ชื่อบริษัท/Product</Typography>
       <Typography variant="h5" sx={{ mb: 2 }}>
         เพื่อลงทะเบียน
       </Typography>
