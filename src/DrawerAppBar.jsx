@@ -15,9 +15,10 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Hidden from "@mui/material/Hidden";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
-const navItems = ["Home", "Register", "Agenda"];
+const navItems = ["home", "register", "agenda"];
 
 function DrawerAppBar(props) {
   const { window } = props;
@@ -35,11 +36,19 @@ function DrawerAppBar(props) {
       <Divider />
       <List>
         {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
+          <Link
+            to={`/${item}`}
+            style={{ textDecoration: "none", color: "#000" }}
+            key={item}
+          >
+            <ListItem disablePadding>
+              <ListItemButton sx={{ textAlign: "center" }}>
+                <ListItemText
+                  primary={item.charAt(0).toUpperCase() + item.slice(1)}
+                />
+              </ListItemButton>
+            </ListItem>
+          </Link>
         ))}
       </List>
     </Box>
@@ -57,7 +66,9 @@ function DrawerAppBar(props) {
             {" "}
             {/* Hides text on smaller screens where the IconButton is visible */}
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Cardio Review
+              <Link to="/" style={{ textDecoration: "none", color: "#fff" }}>
+                Cardio Review
+              </Link>
             </Typography>
           </Hidden>
           <IconButton
@@ -75,12 +86,19 @@ function DrawerAppBar(props) {
             textAlign="left"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            PMK Cardio Review 2024
+            <Link to="/" style={{ textDecoration: "none", color: "#fff" }}>
+              PMK Cardio Review 2024
+            </Link>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
               <Button key={item} sx={{ color: "#fff" }}>
-                {item}
+                <Link
+                  to={`/${item}`}
+                  style={{ textDecoration: "none", color: "#fff" }}
+                >
+                  {item.charAt(0).toUpperCase() + item.slice(1)}
+                </Link>
               </Button>
             ))}
           </Box>

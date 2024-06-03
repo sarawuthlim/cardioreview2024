@@ -9,6 +9,8 @@ import {
   FormControl,
   FormHelperText,
 } from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { getCurrentBKKTime } from "./util";
 
 async function fetchDataFromFirebase() {
   const querySnapshot = await getDocs(collection(db, "register"));
@@ -119,7 +121,12 @@ function ImageUploadForm({ onLoadingChange }) {
 
     try {
       // 1. Create new file name from input
-      const newFileName = `${formData.image.name.replace(/\s+/g, "_")}`;
+      const today = new Date();
+      const formattedDate = today.toLocaleDateString("en-CA");
+      const newFileName = `[${formattedDate}]-${formData.image.name.replace(
+        /\s+/g,
+        "_"
+      )}`;
 
       // 2. Image Upload
       let imageUrl = "";
@@ -136,8 +143,9 @@ function ImageUploadForm({ onLoadingChange }) {
         institute: formData.institute,
         code: formData.code,
         imageUrl,
-        timestamp: new Date().toLocaleDateString(),
+        timestamp: getCurrentBKKTime(),
         applyType: "self",
+        sponsor: "",
         approved: false,
       });
 
@@ -227,7 +235,13 @@ function ImageUploadForm({ onLoadingChange }) {
           onChange={handleChange}
         />
 
-        <Button variant="outlined" component="label" fullWidth>
+        <Button
+          variant="outlined"
+          component="label"
+          fullWidth
+          startIcon={<CloudUploadIcon />}
+          size="large"
+        >
           แนบรูปภาพหลักฐานโอนเงิน 1,000 บาท *
           <input
             type="file"
