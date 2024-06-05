@@ -249,7 +249,7 @@ function ImageUploadForm({ onLoadingChange }) {
           startIcon={<CloudUploadIcon />}
           size="large"
         >
-          แนบรูปภาพหลักฐานโอนเงิน 1,000 บาท *
+          ภาพหลักฐานโอนเงิน 1,000 บาท*
           <input
             type="file"
             accept="image/*"

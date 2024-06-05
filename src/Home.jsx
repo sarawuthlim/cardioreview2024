@@ -14,110 +14,138 @@ import "./Home.css";
 import { Link } from "react-router-dom";
 import DrawerAppBar from "./DrawerAppBar";
 
-const image = "src/assets/heart.jpeg";
+import image from '../src/assets/heart.jpeg';
+import keynoteLectureUrl from '../src/assets/KeynoteLecture.png';
+
 const imageText = "PMK Cardio Review 2024";
+
 const title = "PMK Cardio Review 2024";
 const description =
   "A comprehensive review of cardiovascular diseases and treatments.";
-const keynoteLectureUrl = "src/assets/KeynoteLecture.png";
+
+import daiichi from "../src/assets/1-Daiichi.jpg";
+import bayer from "../src/assets/1-Bayer.jpg";
+import boehringer from "../src/assets/1-Boehringer.jpg";
+import novartis from "../src/assets/1-Novartis.jpg";
+import astraZeneca from "../src/assets/1-AstraZeneca.jpg";
+import abbottMedical from "../src/assets/1-AbbottMedical.jpg";
+import novoNordisk from "../src/assets/1-NovoNordisk.jpg";
 
 const diamondSponsors = [
   {
-    img: "src/assets/1-Daiichi.jpg",
+    img: daiichi,
     title: "Daiichi Sankyo",
   },
   {
-    img: "src/assets/1-Bayer.jpg",
+    img: bayer,
     title: "Bayer Thai",
   },
   {
-    img: "src/assets/1-Boehringer.jpg",
+    img: boehringer,
     title: "Boehringer Ingelheim",
   },
   {
-    img: "src/assets/1-Novartis.jpg",
+    img: novartis,
     title: "Novartis",
   },
   {
-    img: "src/assets/1-AstraZeneca.jpg",
+    img: astraZeneca,
     title: "AstraZeneca",
   },
   {
-    img: "src/assets/1-AbbottMedical.jpg",
+    img: abbottMedical,
     title: "Abbott Medical",
   },
   {
-    img: "src/assets/1-NovoNordisk.jpg",
+    img: novoNordisk,
     title: "Novo Nordisk",
   },
 ];
 
+import biopharm from "../src/assets/2-Biopharm.jpg";
+import amgen from "../src/assets/2-Amgen.jpg";
+
 const platinumSponsors = [
   {
-    img: "src/assets/2-Biopharm.jpg",
+    img: biopharm,
     title: "Biopharm",
   },
   {
-    img: "src/assets/2-Amgen.jpg",
+    img: amgen,
     title: "Amgen",
   },
 ];
 
+import menarini from "../src/assets/3-AMenarini.jpg";
+import asahi from "../src/assets/3-Asahi.jpg";
+import atb from "../src/assets/3-ATB.jpg";
+import berlin from "../src/assets/3-Berlin.jpg";
+import bostonScientific from "../src/assets/3-BostonScientific.svg";
+import medtronic from "../src/assets/3-Medtronic.jpg";
+import organon from "../src/assets/3-Organon.jpg";
+import pfizer from "../src/assets/3-Pfizer.jpg";
+import servier from "../src/assets/3-Servier.svg";
+import thaiOtsuka from "../src/assets/3-ThaiOtsuka.jpg";
+import viatris from "../src/assets/3-Viatris.jpg";
+import zuellig from "../src/assets/3-Zuellig.jpg";
+import lgChem from "../src/assets/3-LGChem.jpg";
+import roche from "../src/assets/3-Roche.jpg";
+
 const goldSponsors = [
   {
-    img: "src/assets/3-AMenarini.jpg",
+    img: menarini,
     title: "A.Menarini",
   },
   {
-    img: "src/assets/3-Asahi.jpg",
+    img: asahi,
     title: "Asahi Kasei",
   },
   {
-    img: "src/assets/3-ATB.jpg",
+    img: atb,
     title: "American Taiwan Biopharm",
   },
   {
-    img: "src/assets/3-Berlin.jpg",
+    img: berlin,
     title: "Berlin",
   },
   {
-    img: "src/assets/3-BostonScientific.svg",
+    img: bostonScientific,
     title: "Boston Scientific",
   },
   {
-    img: "src/assets/3-Medtronic.jpg",
+    img: medtronic,
     title: "Medtronic",
   },
   {
-    img: "src/assets/3-Organon.jpg",
+    img: organon,
     title: "Organon",
   },
   {
-    img: "src/assets/3-Pfizer.jpg",
+    img: pfizer,
     title: "Pfizer",
   },
   {
-    img: "src/assets/3-Servier.svg",
+    img: servier,
     title: "Servier",
   },
   {
-    img: "src/assets/3-ThaiOtsuka.jpg",
+    img: thaiOtsuka,
     title: "Thai Otsuka",
   },
   {
-    img: "src/assets/3-Viatris.jpg",
+    img: viatris,
     title: "Viatris",
   },
   {
-    img: "src/assets/3-Zuellig.jpg",
+    img: zuellig,
     title: "Zuellig Pharma",
   },
   {
-    img: "src/assets/3-LGChem.jpg",
+    img: lgChem,
     title: "LG Chem",
   },
   {
-    img: "src/assets/3-Roche.jpg",
+    img: roche,
     title: "Roche Diagnostics",
   },
 ];
