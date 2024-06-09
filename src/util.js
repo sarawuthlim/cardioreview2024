@@ -34,6 +34,10 @@ export const companyList = [
   { id: 25, name: "A. Menarini", product: "Ranexa", quota: 5 },
   { id: 26, name: "LG Chem", product: "Zemiglo", quota: 5 },
   { id: 27, name: "Roche Diagnostics", product: "", quota: 5 },
+  { id: 28, name: "Meditop", product: "", quota: 5 },
+  { id: 28, name: "Bayer Thai", product: "Xarelto", quota: 5 },
+  { id: 28, name: "Novartis", product: "Sybrava", quota: 5 },
+  { id: 28, name: "AstraZeneca", product: "Vivacor", quota: 5 },
 ];
 
 export const getComanyById = (id) => {

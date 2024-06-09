@@ -8,6 +8,7 @@ import {
   Box,
   FormControl,
   FormHelperText,
+  Typography,
 } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { getCurrentBKKTime } from "./util";
@@ -175,7 +176,10 @@ function ImageUploadForm({ onLoadingChange }) {
 
   return (
     <>
-      <h2>ลงทะเบียน</h2>
+      <Typography variant="h4" >ลงทะเบียน</Typography>
+      <Typography variant="body2" marginTop={1}>กรุณาโอนเงิน 1,000 บาท ก่อนลงทะเบียน</Typography>
+      <Typography variant="body2">ชื่อบัญชี มูลนิธิเพื่อกองอายุรกรรม (คาร์ดิโอโลยี่ รีวิว)</Typography>
+      <Typography variant="body2" marginBottom={2}>ธ.กรุงเทพ เลขที่ 043-802053-9</Typography>
       <Box
         component="form"
         onSubmit={handleSubmit}

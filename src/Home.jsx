@@ -21,7 +21,7 @@ const imageText = "PMK Cardio Review 2024";
 
 const title = "PMK Cardio Review 2024";
 const description =
-  "A comprehensive review of cardiovascular diseases and treatments.";
+  "The Journey of Cardiology: From the Past to the Future";
 
 import daiichi from "../src/assets/1-Daiichi.jpg";
 import bayer from "../src/assets/1-Bayer.jpg";
@@ -90,6 +90,7 @@ import viatris from "../src/assets/3-Viatris.jpg";
 import zuellig from "../src/assets/3-Zuellig.jpg";
 import lgChem from "../src/assets/3-LGChem.jpg";
 import roche from "../src/assets/3-Roche.jpg";
+import meditop from "../src/assets/3-Meditop.jpg";
 
 const goldSponsors = [
   {
@@ -148,6 +149,10 @@ const goldSponsors = [
     img: roche,
     title: "Roche Diagnostics",
   },
+  {
+    img: meditop,
+    title: "Meditop",
+  }
 ];
 
 function Home() {
