@@ -35,9 +35,9 @@ export const companyList = [
   { id: 26, name: "LG Chem", product: "Zemiglo", quota: 5 },
   { id: 27, name: "Roche Diagnostics", product: "", quota: 5 },
   { id: 28, name: "Meditop", product: "", quota: 5 },
-  { id: 28, name: "Bayer Thai", product: "Xarelto", quota: 5 },
-  { id: 28, name: "Novartis", product: "Sybrava", quota: 5 },
-  { id: 28, name: "AstraZeneca", product: "Vivacor", quota: 5 },
+  { id: 29, name: "Bayer Thai", product: "Xarelto", quota: 5 },
+  { id: 30, name: "Novartis", product: "Sybrava", quota: 5 },
+  { id: 31, name: "AstraZeneca", product: "Vivacor", quota: 5 },
 ];
 
 export const getComanyById = (id) => {
@@ -68,13 +68,16 @@ export async function fetchDataFromFirebase() {
   return fetchedData;
 }
 
-
 export function filterBySponsor(data, companyId) {
-  return data.filter((item) => item.sponsor == companyId && item.applyType == "sponsor");
+  return data.filter(
+    (item) => item.sponsor == companyId && item.applyType == "sponsor"
+  );
 }
 
 export function filterByOverQuota(data, companyId) {
-  return data.filter((item) => item.sponsor == companyId && item.applyType == "overQuota");
+  return data.filter(
+    (item) => item.sponsor == companyId && item.applyType == "overQuota"
+  );
 }
 
 export function getCurrentBKKTime() {
@@ -104,6 +107,6 @@ export function isEmailRegistered(email, emailArray) {
 }
 
 export function likeFilter(array, pattern) {
-  const regex = new RegExp(`.*${pattern}.*`, 'i');
-  return array.filter(item => regex.test(item));
+  const regex = new RegExp(`.*${pattern}.*`, "i");
+  return array.filter((item) => regex.test(item));
 }
