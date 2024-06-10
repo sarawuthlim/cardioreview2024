@@ -17,9 +17,13 @@ import { useNavigate } from "react-router-dom";
 async function fetchDataFromFirebase() {
   const querySnapshot = await getDocs(collection(db, "register"));
   const fetchedData = [];
+  // loop through each document and get only the data that discarded is false
   querySnapshot.forEach((doc) => {
-    fetchedData.push({ id: doc.id, ...doc.data() });
+    if (!doc.data().discarded) {
+      fetchedData.push({ id: doc.id, ...doc.data() });
+    }
   });
+
   return fetchedData;
 }
 
@@ -127,10 +131,9 @@ function ImageUploadForm({ onLoadingChange }) {
       // 1. Create new file name from input
       const today = new Date();
       const formattedDate = today.toLocaleDateString("en-CA");
-      const newFileName = `[${formattedDate}]-${formData.image.name.replace(
-        /\s+/g,
-        "_"
-      )}`;
+      const newFileName = `[${formattedDate}]-${Math.floor(
+        Math.random() * 101
+      )}-${formData.image.name.replace(/\s+/g, "_")}`;
 
       // 2. Image Upload
       let imageUrl = "";
@@ -151,6 +154,7 @@ function ImageUploadForm({ onLoadingChange }) {
         applyType: "self",
         sponsor: "",
         approved: false,
+        discarded: false,
       });
 
       // 4. Reset form and loading state
@@ -166,7 +170,6 @@ function ImageUploadForm({ onLoadingChange }) {
 
       // 5. Redirect to success page
       navigate("/success");
-
     } catch (error) {
       console.error("Error submitting form:", error);
       setIsLoading(false);
@@ -176,10 +179,16 @@ function ImageUploadForm({ onLoadingChange }) {
 
   return (
     <>
-      <Typography variant="h4" >ลงทะเบียน</Typography>
-      <Typography variant="body2" marginTop={1}>กรุณาโอนเงิน 1,000 บาท ก่อนลงทะเบียน</Typography>
-      <Typography variant="body2">ชื่อบัญชี มูลนิธิเพื่อกองอายุรกรรม (คาร์ดิโอโลยี่ รีวิว)</Typography>
-      <Typography variant="body2" marginBottom={2}>ธ.กรุงเทพ เลขที่ 043-802053-9</Typography>
+      <Typography variant="h4">ลงทะเบียน</Typography>
+      <Typography variant="body2" marginTop={1}>
+        กรุณาโอนเงิน 1,000 บาท ก่อนลงทะเบียน
+      </Typography>
+      <Typography variant="body2">
+        ชื่อบัญชี มูลนิธิเพื่อกองอายุรกรรม (คาร์ดิโอโลยี่ รีวิว)
+      </Typography>
+      <Typography variant="body2" marginBottom={2}>
+        ธ.กรุงเทพ เลขที่ 043-802053-9
+      </Typography>
       <Box
         component="form"
         onSubmit={handleSubmit}

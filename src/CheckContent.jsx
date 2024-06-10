@@ -39,7 +39,7 @@ function CheckContent({ onLoadingChange }) {
 
     const inputValue = e.target.value.toLowerCase();
 
-    const filteredData = data.filter(item => {
+    const filteredData = data.filter((item) => {
       const itemName = item.name.toLowerCase();
       const itemEmail = item.email.toLowerCase();
       return itemName.includes(inputValue) || itemEmail.includes(inputValue);
@@ -85,10 +85,25 @@ function CheckContent({ onLoadingChange }) {
               >
                 {item.email}
               </Typography>
-              {item.approved == true ? (
+
+              {item.approved && !item.discarded && (
                 <Chip label="ลงทะเบียนสำเร็จ" color="success" size="small" />
-              ) : (
+              )}
+
+              {!item.approved && !item.discarded && (
                 <Chip label="รอการตรวจสอบ" color="warning" size="small" />
+              )}
+
+              {item.discarded && (
+                <>
+                  <Chip label="มีข้อผิดพลาด" color="error" size="small" />
+                  <Typography
+                    variant="caption"
+                    sx={{ display: "block", color: "red" }}
+                  >
+                    กรุณาติดต่อเจ้าหน้าที่
+                  </Typography>
+                </>
               )}
             </Card>
           ))}

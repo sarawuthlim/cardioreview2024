@@ -48,7 +48,9 @@ function CompanyRegister() {
 
     async function fetchData() {
       try {
-        const data = await fetchDataFromFirebase();
+        let data = await fetchDataFromFirebase();
+        // filter out discarded data
+        data = data.filter((item) => !item.discarded);
         setRegisteredEmails(data.map((item) => item.email));
         setRegisteredName(data.map((item) => item.name));
         setData(data);
@@ -106,6 +108,7 @@ function CompanyRegister() {
         applyType: typeRegister,
         sponsor: companyId,
         approved: true,
+        discarded: false,
         imageUrl: "",
       });
 

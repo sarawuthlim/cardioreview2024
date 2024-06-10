@@ -14,6 +14,7 @@ import Check from "./Check.jsx";
 import Footer from "./Footer.jsx";
 import { Box } from "@mui/material";
 import Agenda from "./Agenda.jsx";
+import Approval from "./Approval.jsx";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
   {
     path: "agenda",
     element: <Agenda />,
+  },
+  {
+    path: "approval",
+    element: <Approval />,
   }
 ]);
 
