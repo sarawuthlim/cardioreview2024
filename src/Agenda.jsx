@@ -15,11 +15,10 @@ import {
   Avatar,
 } from "@mui/material";
 import { agendaArray } from "./agendaArray";
-import { set } from "firebase/database";
 
 function Agenda() {
   const [agenda, setAgenda] = React.useState([]);
-  const [selectedDate, setSelectedDate] = useState("13 กรกฎาคม 67");
+  const [selectedDate, setSelectedDate] = useState(chooseDate());
   const [filteredAgenda, setFilteredAgenda] = useState([]);
 
   useEffect(() => {
@@ -79,9 +78,10 @@ function Agenda() {
           sx={
             item.room && item.speaker
               ? { minWidth: 345, mb: 2 }
-              : { minWidth: 345, mb: 2, bgcolor: "lightgrey" }
+              : { minWidth: 345, mb: 2, bgcolor: "#c0d5f1" }
           }
           key={item.id}
+          elevation={item.title.includes("Break") ? 0 : 3}
         >
           <CardHeader
             title={
@@ -103,7 +103,7 @@ function Agenda() {
                     color="text.secondary"
                     align="center"
                   >
-                    {!item.speaker ?? item.speaker}
+                    {!item.speaker && item.speaker}
                   </Typography>
                 )}
                 <Typography variant="h6" color="text.secondary" align="center">
@@ -112,6 +112,11 @@ function Agenda() {
                     typeof item.speaker === "object" &&
                     item.speaker.join(" | ")}
                 </Typography>
+                {item.title.includes("Break") && (
+                  <Typography variant="body1" color="white" align="center">
+                    {item.startTime} - {item.endTime}
+                  </Typography>
+                )}
               </>
             }
           />
@@ -168,3 +173,19 @@ function Agenda() {
 }
 
 export default Agenda;
+
+function chooseDate() {
+  const bangkokDate = new Date().toLocaleString("en-US", {
+    timeZone: "Asia/Bangkok",
+  });
+
+  const date14072024 = new Date("2024-07-14T00:00:00").toLocaleString("en-US", {
+    timeZone: "Asia/Bangkok",
+  });
+
+  if (new Date(bangkokDate) < new Date(date14072024)) {
+    return "13 กรกฎาคม 67";
+  } else {
+    return "14 กรกฎาคม 67";
+  }
+}
