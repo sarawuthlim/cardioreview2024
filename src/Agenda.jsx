@@ -58,16 +58,16 @@ function Agenda() {
             <ToggleButton
               value="13 กรกฎาคม 67"
               size="large"
-              sx={{ paddingX: 4 }}
+              sx={{ paddingX: 2 }}
             >
-              13 กรกฎาคม 67
+              เสาร์ 13 ก.ค. 67
             </ToggleButton>
             <ToggleButton
               value="14 กรกฎาคม 67"
               size="large"
-              sx={{ paddingX: 4 }}
+              sx={{ paddingX: 2 }}
             >
-              14 กรกฎาคม 67
+              อาทิตย์ 14 ก.ค. 67
             </ToggleButton>
           </ToggleButtonGroup>
         </Box>
