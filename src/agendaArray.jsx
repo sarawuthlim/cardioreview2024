@@ -46,7 +46,7 @@ export const agendaArray = [
     startTime: "10:30",
     endTime: "11:00",
     title:
-      "Peripheral Arterial Disease: Treatment Options Before Surgical Consultationx",
+      "Peripheral Arterial Disease: Treatment Options Before Surgical Consultation",
     speaker: "นพ.ธิปกร ผังเมืองดี",
     sponsor: null,
     room: "ห้องประชุมดุสิตธานี",
