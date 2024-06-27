@@ -35,11 +35,12 @@ function CompanyHome() {
         setData(data);
         setSponsorCount(filterBySponsor(data, companyId).length);
         setOverQuotaCount(filterByOverQuota(data, companyId).length);
-        setRegisteredNameList(
-          data
-            .filter((item) => item.sponsor == companyId)
-            .map((item) => item.name)
-        );
+        // sort registeredNameList by timestamp
+        const registeredNameList = data
+          .filter((item) => item.sponsor == companyId)
+          .sort((a, b) => a.timestamp - b.timestamp)
+          .map((item) => item.name);
+        setRegisteredNameList(registeredNameList);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -122,7 +123,7 @@ function CompanyHome() {
               </Typography>
               <hr />
               <Box sx={{ textAlign: "left" }}>
-                {registeredNameList.map((name, index) => (
+                {registeredNameList.sort().map((name, index) => (
                   <Typography
                     key={index}
                     variant="body2"
