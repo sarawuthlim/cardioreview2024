@@ -13,8 +13,17 @@ import {
   Grid,
   ToggleButtonGroup,
   Avatar,
+  Button,
+  Rating,
+  TextField,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { agendaArray } from "./agendaArray";
+import Modal from "@mui/material/Modal";
+import { addDoc, collection } from "firebase/firestore";
+
+import { db, getCurrentBKKTime } from "./util";
 
 function Agenda() {
   const [agenda, setAgenda] = React.useState([]);
@@ -31,6 +40,65 @@ function Agenda() {
   const handleDateChange = (event, newDate) => {
     setSelectedDate(newDate);
     setFilteredAgenda(agenda.filter((item) => item.date[1] == newDate[1]));
+  };
+
+  // function about rating
+  const [openModal, setOpenModal] = useState(false);
+  const [rating, setRating] = useState(null);
+  const [comment, setComment] = useState("");
+  const [userCode, setUserCode] = useState("");
+  const [headerModal, setHeaderModal] = useState({ title: "", id: "" });
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setRating(null);
+    setComment("");
+    setUserCode("");
+  };
+
+  const handleRating = (id, title) => {
+    setHeaderModal({ title: title, id: id });
+    setOpenModal(true);
+  };
+
+  const handleRatingChange = (event, newValue) => {
+    setRating(newValue);
+  };
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success"); // 'success', 'error', 'warning', 'info'
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  const handleSubmitModal = async () => {
+    try {
+      const feedbackData = {
+        id: headerModal.id,
+        rating: rating,
+        comment: comment || null,
+        userCode: userCode || null,
+        timestamp: getCurrentBKKTime(),
+      };
+      // save to firestore
+      const feedbackCollection = collection(db, "feedback");
+      await addDoc(feedbackCollection, feedbackData);
+
+      setSnackbarMessage("Feedback submitted successfully!");
+      setSnackbarSeverity("success");
+      setSnackbarOpen(true);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      setSnackbarMessage(
+        "There was an error submitting your feedback. Please try again."
+      );
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+    } finally {
+      handleCloseModal();
+    }
   };
 
   return (
@@ -163,14 +231,108 @@ function Agenda() {
                     sx={{ mt: 1, width: "fit-content" }}
                   />
                 )}
+                {
+                  // if item.title not inlcude "Break" add "Rating" button that open modal have onClick
+                  !item.title.includes("Break") && (
+                    <Chip
+                      label="Feedback"
+                      color="warning"
+                      variant="filled"
+                      sx={{ mt: 1, width: "fit-content" }}
+                      onClick={() => handleRating(item.id, item.title)}
+                    />
+                  )
+                }
+                {
+                  // if item.slide is not empty add "Slide" button that open new tab
+                  item.slide && (
+                    <Chip
+                      label="Slide"
+                      color="primary"
+                      variant="filled"
+                      sx={{
+                        mt: 1,
+                        width: "fit-content",
+                        "&:hover": { cursor: "pointer" },
+                      }}
+                      component="a"
+                      href={item.slide}
+                      target="_blank"
+                    />
+                  )
+                }
               </Box>
             </CardContent>
           )}
         </Card>
       ))}
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="feedback-modal"
+      >
+        <Box sx={style}>
+          <h2>{headerModal.title}</h2>
+          <div>โปรดให้คะแนนและความคิดเห็น</div>
+          <Rating
+            name="rating"
+            value={rating}
+            onChange={handleRatingChange}
+            precision={0.5} // Allow half-star ratings
+            size="large"
+            sx={{ mb: 2 }} // Add bottom margin
+          />
+
+          <TextField
+            label="Comment (Optional)"
+            multiline
+            rows={4}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            fullWidth
+            sx={{ mb: 2 }}
+          />
+
+          <TextField
+            label="เลขลำดับเพื่อลุ้นรางวัล (Optional)"
+            value={userCode}
+            fullWidth
+            onChange={(e) => setUserCode(e.target.value)}
+          />
+
+          <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+            <Button onClick={handleSubmitModal} disabled={!rating}>
+              Submit
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={2500}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }} // Position at bottom-left
+      >
+        <Alert onClose={handleSnackbarClose} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </>
   );
 }
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default Agenda;
 
