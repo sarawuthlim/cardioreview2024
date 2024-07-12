@@ -18,6 +18,8 @@ function Company() {
           {/* sort companyList by quata desc and the by name before map */}
           {companyList
             .sort((a, b) => b.quota - a.quota || a.name.localeCompare(b.name))
+            // filter company with which id = 99
+            .filter((item) => item.id != 99)
             .map((item) => (
               <Link key={item.id} to={`/company/${item.id}`}>
                 <Button

@@ -15,6 +15,8 @@ import Footer from "./Footer.jsx";
 import { Box } from "@mui/material";
 import Agenda from "./Agenda.jsx";
 import Approval from "./Approval.jsx";
+import CompanyView from "./CompanyView.jsx";
+import Names from "./Names.jsx";
 
 const router = createBrowserRouter([
   {
@@ -56,7 +58,15 @@ const router = createBrowserRouter([
   {
     path: "approval",
     element: <Approval />,
-  }
+  },
+  {
+    path: "companyview",
+    element: <CompanyView />,
+  },
+  {
+    path: "names",
+    element: <Names />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

@@ -38,6 +38,7 @@ export const companyList = [
   { id: 29, name: "Bayer Thai", product: "Xarelto", quota: 5 },
   { id: 30, name: "Novartis", product: "Sybrava", quota: 5 },
   { id: 31, name: "AstraZeneca", product: "Vivacor", quota: 5 },
+  { id: 99, name: "แผนกโรคหัวใจ", product: "", quota: 999 },
 ];
 
 export const getComanyById = (id) => {
@@ -69,6 +70,7 @@ export async function fetchDataFromFirebase() {
 }
 
 export function filterBySponsor(data, companyId) {
+  if (companyId == 99) return data.filter((item) => item.applyType == "pmk");
   return data.filter(
     (item) => item.sponsor == companyId && item.applyType == "sponsor"
   );

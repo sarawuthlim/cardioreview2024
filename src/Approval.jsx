@@ -36,6 +36,7 @@ function Approval() {
           sponsor: data.filter((item) => item.applyType === "sponsor").length,
           overQuota: data.filter((item) => item.applyType === "overQuota")
             .length,
+          pmk: data.filter((item) => item.applyType === "pmk").length,
         };
         setCount(count);
         const filteredWaiting = data.filter(
@@ -133,6 +134,7 @@ function Approval() {
             <Typography variant="body2">
               Over Quota: {count.overQuota} คน
             </Typography>
+            <Typography variant="body2">ลงโดยแผนก: {count.pmk} คน</Typography>
           </CardContent>
         </Card>
       </Grid>

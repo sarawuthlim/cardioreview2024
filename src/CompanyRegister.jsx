@@ -105,7 +105,7 @@ function CompanyRegister() {
         institute: formData.institute,
         code: formData.code,
         timestamp: getCurrentBKKTime(),
-        applyType: typeRegister,
+        applyType: companyId == 99 ? "pmk" : typeRegister,
         sponsor: companyId,
         approved: true,
         discarded: false,
@@ -261,7 +261,6 @@ function CompanyRegister() {
             </Button>
           </Link>
         </Box>
-
       </Box>
     </>
   );
