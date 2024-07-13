@@ -50,6 +50,7 @@ export const agendaArray = [
     speaker: "นพ.ธิปกร ผังเมืองดี",
     sponsor: null,
     room: "ห้องประชุมดุสิตธานี",
+    slide: "https://sarawuthlim.com/wp-content/uploads/2024/07/PAD-PCR.pdf",
   },
   {
     id: 5,
@@ -138,7 +139,8 @@ export const agendaArray = [
     speaker: "นพ.ศราวุธ ลิ้มประเสริฐ",
     sponsor: null,
     room: "ห้องประชุมใหญ่",
-    slide: "https://sarawuthlim.com/wp-content/uploads/2024/07/2024-07-13-Cardio-Review-Post-Cardiac-Arrest.pdf"
+    slide:
+      "https://sarawuthlim.com/wp-content/uploads/2024/07/2024-07-13-Cardio-Review-Post-Cardiac-Arrest.pdf",
   },
   {
     id: 12,
@@ -193,7 +195,8 @@ export const agendaArray = [
     sponsor: "Boehringer Ingelheim",
     room: "ห้องประชุมดุสิตธานี",
     type: "Plenary Lecture",
-    slide: "https://sarawuthlim.com/wp-content/uploads/2024/07/2024-07-13-Cardio-Review-OAC-in-AF.pdf"
+    slide:
+      "https://sarawuthlim.com/wp-content/uploads/2024/07/2024-07-13-Cardio-Review-OAC-in-AF.pdf",
   },
   {
     id: 16.5,
