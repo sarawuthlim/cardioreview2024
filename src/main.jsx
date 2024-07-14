@@ -17,6 +17,9 @@ import Agenda from "./Agenda.jsx";
 import Approval from "./Approval.jsx";
 import CompanyView from "./CompanyView.jsx";
 import Names from "./Names.jsx";
+import FeedbackRandom from "./FeedbackRandom.jsx";
+import FeedbackResults from "./FeedbackRandom.jsx";
+import RegisterPerDay from "./RegisterPerDay.jsx";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +69,14 @@ const router = createBrowserRouter([
   {
     path: "names",
     element: <Names />,
+  },
+  {
+    path: "feedbackresult",
+    element: <FeedbackResults />,
+  },
+  {
+    path: "registerperday",
+    element: <RegisterPerDay />,
   },
 ]);
 

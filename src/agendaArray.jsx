@@ -250,6 +250,8 @@ export const agendaArray = [
     speaker: "นพ.ศราวุธ ลิ้มประเสริฐ",
     sponsor: null,
     room: "ห้องประชุมใหญ่",
+    slide:
+      "https://sarawuthlim.com/wp-content/uploads/2024/07/2024-07-14-Cardio-Review-CIED-for-internist.pdf",
   },
   {
     id: 21,
@@ -311,6 +313,8 @@ export const agendaArray = [
     speaker: ["พญ.วราภรณ์ ติยานนท์", "นพ.ศราวุธ ลิ้มประเสริฐ"],
     sponsor: null,
     room: "ห้องประชุมดุสิตธานี",
+    slide:
+      "https://sarawuthlim.com/wp-content/uploads/2024/07/2024-07-14-Cardio-Review-Amyloid-Case.pdf",
   },
   {
     id: 27,
@@ -452,6 +456,8 @@ export const agendaArray = [
     speaker: "พญ.วราภรณ์ ติยานนท์",
     sponsor: null,
     room: "ห้องประชุมดุสิตธานี",
+    slide:
+      "https://sarawuthlim.com/wp-content/uploads/2024/07/AF-TR-and-MR.pdf",
   },
   {
     id: 40,
