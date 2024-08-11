@@ -20,6 +20,7 @@ import Names from "./Names.jsx";
 import FeedbackRandom from "./FeedbackRandom.jsx";
 import FeedbackResults from "./FeedbackRandom.jsx";
 import RegisterPerDay from "./RegisterPerDay.jsx";
+import Ending from "./Ending.jsx";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
   {
     path: "registerperday",
     element: <RegisterPerDay />,
+  },
+  {
+    path: "ending",
+    element: <Ending />,
   },
 ]);
 
